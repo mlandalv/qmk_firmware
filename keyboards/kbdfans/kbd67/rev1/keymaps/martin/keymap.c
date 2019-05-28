@@ -14,12 +14,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#define RSFT_CL MT(MOD_RSFT, KC_CAPS)
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-  QMKBEST = SAFE_RANGE,
-  QMKURL
+    M_AO = SAFE_RANGE, // Åå
+    M_AE, // Ää
+    M_OE, // Öö
+};
+
+char *alt_codes[][2] = {
+    {
+        SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_2)SS_TAP(X_KP_2)SS_TAP(X_KP_9)), // Alt+0229 → å
+        SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_1)SS_TAP(X_KP_9)SS_TAP(X_KP_7)), // Alt+0197 → Å
+    },
+    {
+        SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_2)SS_TAP(X_KP_2)SS_TAP(X_KP_8)), // Alt+0228 → ä
+        SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_1)SS_TAP(X_KP_9)SS_TAP(X_KP_6)), // Alt+0196 → Ä
+    },
+    {
+        SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_2)SS_TAP(X_KP_4)SS_TAP(X_KP_6)), // Alt+0246 → ö
+        SS_LALT(SS_TAP(X_KP_0)SS_TAP(X_KP_2)SS_TAP(X_KP_1)SS_TAP(X_KP_4)), // Alt+0214 → Ö
+    },
 };
 
 enum layers {
@@ -72,32 +87,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_CL] = LAYOUT_65_martin(
     KC_GRV,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL,  RESET,\
-   _______,RGB_TOG,RGB_MOD,RGB_HUI,RGB_HUD,RGB_SAI,RGB_SAD,RGB_VAI,RGB_VAD,_______,_______,_______,_______,_______,_______,\
-   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______,_______,\
+   _______,RGB_TOG,RGB_MOD,RGB_HUI,RGB_HUD,RGB_SAI,RGB_SAD,RGB_VAI,RGB_VAD,_______,_______,   M_AO,_______,_______,_______,\
+   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   M_OE,   M_AE,        _______,_______,\
    _______,_______,_______,_______,_______, BL_DEC,BL_TOGG, BL_INC,BL_STEP,_______,_______,        _______,_______,_______,\
    _______,_______,_______,                 _______,                       _______,_______,_______,_______,_______,_______),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QMKBEST:
-      if (record->event.pressed) {
-        // when keycode QMKBEST is pressed
-        SEND_STRING("QMK is the best thing ever!");
-      } else {
-        // when keycode QMKBEST is released
-      }
-      break;
-    case QMKURL:
-      if (record->event.pressed) {
-        // when keycode QMKURL is pressed
-        SEND_STRING("https://qmk.fm/" SS_TAP(X_ENTER));
-      } else {
-        // when keycode QMKURL is released
-      }
-      break;
-  }
-  return true;
+    switch (keycode) {
+        case M_AO:
+        case M_AE:
+        case M_OE: {
+            if (record->event.pressed) {
+                uint16_t index = keycode - M_AO;
+                uint8_t shift = get_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+
+                // Temporarily disable Shift so it doesn't interfere with the numpad keys.
+                unregister_code(KC_LSFT);
+                unregister_code(KC_RSFT);
+
+                // Choose Alt code based on which key was pressed and whether Shift was held.
+                send_string(alt_codes[index][(bool) shift]);
+
+                // Restore Shift keys to their previous state.
+                if (shift & MOD_BIT(KC_LSFT)) register_code(KC_LSFT);
+                if (shift & MOD_BIT(KC_RSFT)) register_code(KC_RSFT);
+
+                return false;
+            }
+        }
+    }
+
+    return true;
 }
 
 void matrix_init_user(void) {

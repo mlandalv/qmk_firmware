@@ -81,51 +81,54 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRV,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,    KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL,_______,\
    _______,_______,_______,_______,_______,_______,_______,_______, KC_INS,  KC_PSCR,KC_SLCK,KC_PAUS,_______,_______,_______,\
    _______,_______,_______,_______,_______,_______,KC_LEFT,KC_DOWN,  KC_UP,  KC_RGHT,_______, KC_GRV,        _______,_______,\
-   _______,_______,_______,_______,_______,_______,_______,_______,_______,  _______,_______,        _______,KC_PGUP,_______,\
+   _______,_______,_______,_______,_______,_______,_______,_______,KC_LEAD,  _______,_______,        _______,KC_PGUP,_______,\
    _______,_______,_______,                _______,                          _______,_______,_______,KC_HOME,KC_PGDN,KC_END),
 
 
 [_CL] = LAYOUT_65_martin(
     KC_GRV,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL,  RESET,\
-   _______,RGB_TOG,RGB_MOD,RGB_HUI,RGB_HUD,RGB_SAI,RGB_SAD,RGB_VAI,RGB_VAD,_______,_______,   M_AO,_______,_______,_______,\
-   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   M_OE,   M_AE,        _______,_______,\
+   _______,RGB_TOG,RGB_MOD,RGB_HUI,RGB_HUD,RGB_SAI,RGB_SAD,RGB_VAI,RGB_VAD,_______,_______,_______,_______,_______,_______,\
+   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______,_______,\
    _______,_______,_______,_______,_______, BL_DEC,BL_TOGG, BL_INC,BL_STEP,_______,_______,        _______,_______,_______,\
    _______,_______,_______,                 _______,                       _______,_______,_______,_______,_______,_______),
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case M_AO:
-        case M_AE:
-        case M_OE: {
-            if (record->event.pressed) {
-                uint16_t index = keycode - M_AO;
-                uint8_t shift = get_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
-
-                // Temporarily disable Shift so it doesn't interfere with the numpad keys.
-                unregister_code(KC_LSFT);
-                unregister_code(KC_RSFT);
-
-                // Choose Alt code based on which key was pressed and whether Shift was held.
-                send_string(alt_codes[index][(bool) shift]);
-
-                // Restore Shift keys to their previous state.
-                if (shift & MOD_BIT(KC_LSFT)) register_code(KC_LSFT);
-                if (shift & MOD_BIT(KC_RSFT)) register_code(KC_RSFT);
-
-                return false;
-            }
-        }
-    }
-
-    return true;
-}
-
-void matrix_init_user(void) {
-
-}
+LEADER_EXTERNS();
 
 void matrix_scan_user(void) {
+    LEADER_DICTIONARY() {
+        leading = false;
+        leader_end();
+
+        SEQ_TWO_KEYS(KC_G, KC_A) {
+            SEND_STRING("git add -A");
+        }
+        SEQ_TWO_KEYS(KC_G, KC_P) {
+            SEND_STRING("git push");
+        }
+        SEQ_THREE_KEYS(KC_G, KC_P, KC_T) {
+            SEND_STRING("git push --tags");
+        }
+        SEQ_TWO_KEYS(KC_G, KC_C) {
+            SEND_STRING("git commit -m \"\""SS_TAP(X_LEFT));
+        }
+        SEQ_TWO_KEYS(KC_Y, KC_U) {
+            SEND_STRING("yarn upgrade-interactive --latest");
+        }
+//        SEQ_TWO_KEYS(KC_A, KC_S) {
+//            register_code(KC_LGUI);
+//            register_code(KC_S);
+//            unregister_code(KC_S);
+//            unregister_code(KC_LGUI);
+//        }
+    }
+}
+
+//bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+//    return true;
+//}
+
+void matrix_init_user(void) {
 
 }
 

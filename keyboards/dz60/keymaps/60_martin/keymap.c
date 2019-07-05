@@ -57,6 +57,9 @@ void matrix_scan_user(void) {
         SEQ_TWO_KEYS(KC_G, KC_C) {
             SEND_STRING("git commit -m \"\""SS_TAP(X_LEFT));
         }
+        SEQ_TWO_KEYS(KC_Y, KC_U) {
+            SEND_STRING("yarn upgrade-interactive --latest");
+        }
 //        SEQ_TWO_KEYS(KC_A, KC_S) {
 //            register_code(KC_LGUI);
 //            register_code(KC_S);

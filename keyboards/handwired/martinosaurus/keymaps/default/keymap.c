@@ -3,7 +3,7 @@
 enum keyboard_layers {
     _BL = 0, // Base Layer
     _FL,     // Function Layer
-    _CL,     // Control Layer
+    _NP,     // Numpad
     _WS      // WebStorm
 };
 
@@ -13,22 +13,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                   KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS, // KC_RBRC, KC_BSLS,
         MO(_FL), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                   KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, //         KC_ENT,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                   KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, //         MO(_CL),
-        KC_LCTL, KC_LGUI, KC_LALT, MO(_FL),     KC_SPC,                      KC_BSPC, KC_ENT,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+        KC_LCTL, KC_LGUI, KC_LALT, MO(_NP),     KC_SPC,                      KC_BSPC, KC_ENT,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 [_FL] = LAYOUT_martinosaurus(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  // KC_F12,           KC_DEL,
-        _______, _______, _______, _______, _______, _______,                _______, _______, KC_INS,  KC_LBRC, KC_RBRC, _______, // KC_PSCR, KC_RBRC,KC_SLCK, //KC_PAUS, RESET,
+        _______, _______, _______, _______, _______, _______,                _______, _______, KC_INS,  KC_LBRC, KC_RBRC, KC_EQL,  // KC_PSCR, KC_RBRC,KC_SLCK, //KC_PAUS, RESET,
         _______, _______, _______, _______, _______, _______,                KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, KC_GRV,  // _______,
         _______, _______, _______, _______, _______, _______,                _______, _______, KC_LEAD, _______, _______, _______, // _______,
         _______, _______, _______, _______,    _______,                       KC_DEL, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
+),
+[_NP] = LAYOUT_martinosaurus(
+        _______, _______, _______, _______, _______, _______,                _______, _______, KC_NUMLOCK, KC_KP_SLASH, KC_KP_ASTERISK, KC_KP_MINUS,
+        _______, _______, _______, _______, _______, _______,                _______, _______, KC_KP_7,    KC_KP_8,     KC_KP_9,        KC_KP_PLUS,
+        KC_CAPS, _______, _______, _______, _______, _______,                _______, _______, KC_KP_4,    KC_KP_5,     KC_KP_6,        KC_KP_PLUS,
+        _______, _______, _______, _______, _______, _______,                _______, _______, KC_KP_1,    KC_KP_2,     KC_KP_3,        KC_KP_ENTER,
+        _______, _______, _______, _______,    _______,                      _______, _______, KC_KP_0,    KC_KP_0,     KC_KP_DOT,      KC_KP_ENTER
 )};
-//[_CL] = LAYOUT_60_martin(
-//        KC_GRV,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          KC_DEL,
-//        _______,          RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, _______, RESET,
-//        KC_CAPS,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-//        _______,          _______, _______, _______, _______, BL_DEC,  BL_TOGG, BL_INC,  BL_STEP, _______, _______,          KC_PGUP, _______,
-//        _______, _______, _______,                            _______,                                     _______, KC_HOME, KC_PGDN, KC_END
-//),
 //[_WS] = LAYOUT_60_martin(
 //        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
 //        _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,

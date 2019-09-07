@@ -4,9 +4,9 @@
 
 A short description of the keyboard/project
 
-Keyboard Maintainer: [Martin Landälv](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: [Martin Landälv](https://github.com/mlandalv)
+Hardware Supported: Elite C
+Hardware Availability:
 
 Make example for this keyboard (after setting up your build environment):
 

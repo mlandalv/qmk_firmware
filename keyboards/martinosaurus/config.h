@@ -1,6 +1,4 @@
 /*
-Copyright 2019 Martin Landälv
-
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
@@ -22,9 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x0000
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Martin Landälv
-#define PRODUCT         martinosaurus
+#define DEVICE_VER      0x0002
+#define MANUFACTURER    Kodosaurus AB
+#define PRODUCT         Martinosaurus
 #define DESCRIPTION     A custom keyboard
 
 /* key matrix size */

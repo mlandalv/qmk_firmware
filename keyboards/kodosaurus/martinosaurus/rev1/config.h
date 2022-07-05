@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    Kodosaurus AB
 #define PRODUCT         Martinosaurus
-#define DESCRIPTION     A custom keyboard
 
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 12

@@ -20,6 +20,7 @@ enum custom_keycodes {
     M_AO = SAFE_RANGE, // Åå
     M_AE, // Ää
     M_OE, // Öö
+    TURBO,
 };
 
 char *alt_codes[][2] = {
@@ -62,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_Q,    KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,       KC_O, KC_P,    KC_LBRC, KC_RBRC,KC_BSLS, _______, \
   MO(_FL), KC_A,    KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,       KC_L, KC_SCLN, KC_QUOT,          KC_ENT, KC_CAPS, \
   KC_LSFT, KC_Z,    KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,           KC_UP, MO(_CL), \
-  KC_LCTL, KC_LGUI, KC_LALT,              KC_SPC,                            KC_RALT, MO(_FL), KC_RCTL, KC_LEFT,KC_DOWN,KC_RGHT),
+  KC_LCTL, KC_LGUI, KC_LALT,              KC_SPC,                            KC_RALT, TG(_FL), KC_RCTL, KC_LEFT,KC_DOWN,KC_RGHT),
 
   /* Keymap Fn Layer
    * ,----------------------------------------------------------------.
@@ -82,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    _______,_______,_______,_______,_______,_______,_______,_______, KC_INS,  KC_PSCR,KC_SLCK,KC_PAUS,_______,_______,_______,\
    _______,_______,_______,_______,_______,_______,KC_LEFT,KC_DOWN,  KC_UP,  KC_RGHT,_______, KC_GRV,        _______,_______,\
    _______,_______,_______,_______,_______,_______,_______,_______,KC_LEAD,  _______,_______,        _______,KC_PGUP,_______,\
-   _______,_______,_______,                _______,                          _______,_______,_______,KC_HOME,KC_PGDN,KC_END),
+   _______,_______,_______,                _______,                          _______,TG(_FL),_______,KC_HOME,KC_PGDN,KC_END),
 
 
 [_CL] = LAYOUT_65_martin(
@@ -93,44 +94,80 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    _______,_______,_______,                 _______,                       _______,_______,_______,_______,_______,_______),
 };
 
-LEADER_EXTERNS();
+//LEADER_EXTERNS();
 
-void matrix_scan_user(void) {
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
 
-        SEQ_TWO_KEYS(KC_G, KC_A) {
-            SEND_STRING("git add -A");
-        }
-        SEQ_TWO_KEYS(KC_G, KC_P) {
-            SEND_STRING("git push");
-        }
-        SEQ_THREE_KEYS(KC_G, KC_P, KC_T) {
-            SEND_STRING("git push --tags");
-        }
-        SEQ_TWO_KEYS(KC_G, KC_C) {
-            SEND_STRING("git commit -m \"\""SS_TAP(X_LEFT));
-        }
-        SEQ_TWO_KEYS(KC_Y, KC_U) {
-            SEND_STRING("yarn upgrade-interactive --latest");
-        }
-//        SEQ_TWO_KEYS(KC_A, KC_S) {
-//            register_code(KC_LGUI);
-//            register_code(KC_S);
-//            unregister_code(KC_S);
-//            unregister_code(KC_LGUI);
-//        }
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+//        case GIT_A:
+//            if (record->event.pressed) {
+//                // when keycode GIT_A is pressed
+//                SEND_STRING("git add -A");
+//            } else {
+//                // when keycode GIT_A is released
+//            }
+//            break;
+//        case GIT_PT:
+//            if (record->event.pressed) {
+//                // when keycode GIT_PT is pressed
+//                SEND_STRING("git push; git push --tags");
+//            } else {
+//                // when keycode GIT_PT is released
+//            }
+//            break;
+//        case GIT_CM:
+//            if (record->event.pressed) {
+//                // when keycode GIT_CM is pressed
+//                SEND_STRING("git commit -m \"\"" SS_TAP(X_LEFT));
+//            } else {
+//                // when keycode GIT_PT is released
+//            }
+//            break;
     }
+    return true;
 }
-
-//bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-//    return true;
-//}
 
 void matrix_init_user(void) {
 
 }
+
+//void matrix_scan_user(void) {
+//    LEADER_DICTIONARY() {
+//        leading = false;
+//        leader_end();
+//
+//        SEQ_TWO_KEYS(KC_G, KC_A) {
+//            SEND_STRING("git add -A");
+//        }
+//        SEQ_TWO_KEYS(KC_G, KC_P) {
+//            SEND_STRING("git push");
+//        }
+//        SEQ_THREE_KEYS(KC_G, KC_P, KC_T) {
+//            SEND_STRING("git push --tags");
+//        }
+//        SEQ_TWO_KEYS(KC_G, KC_C) {
+//            SEND_STRING("git commit -m \"\""SS_TAP(X_LEFT));
+//        }
+//        SEQ_TWO_KEYS(KC_Y, KC_U) {
+//            SEND_STRING("yarn upgrade-interactive --latest");
+//        }
+//        SEQ_TWO_KEYS(KC_Y, KC_L) {
+//            SEND_STRING("yarn lint");
+//        }
+//        //        SEQ_THREE_KEYS(KC_Y, KC_L, KC_L) {
+//        //            SEND_STRING("yarn lint && yarn typecheck");
+//        //        }
+//        //        SEQ_FOUR_KEYS(KC_Y, KC_L, KC_L, KC_L) {
+//        //            SEND_STRING("yarn lint && yarn typecheck && yarn test");
+//        //        }
+//        //        SEQ_TWO_KEYS(KC_A, KC_S) {
+//        //            register_code(KC_LGUI);
+//        //            register_code(KC_S);
+//        //            unregister_code(KC_S);
+//        //            unregister_code(KC_LGUI);
+//        //        }
+//    }
+//}
 
 void led_set_user(uint8_t usb_led) {
 

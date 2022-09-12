@@ -120,17 +120,14 @@ void matrix_scan_user(void) {
         SEQ_TWO_KEYS(KC_G, KC_A) {
             SEND_STRING("git add -A");
         }
-        SEQ_TWO_KEYS(KC_G, KC_P) {
-            SEND_STRING("git push");
-        }
-        SEQ_THREE_KEYS(KC_G, KC_P, KC_T) {
-            SEND_STRING("git push --tags");
-        }
         SEQ_TWO_KEYS(KC_G, KC_C) {
             SEND_STRING("git commit -m \"\""SS_TAP(X_LEFT));
         }
         SEQ_TWO_KEYS(KC_Y, KC_U) {
             SEND_STRING("yarn upgrade-interactive --latest");
+        }
+        SEQ_TWO_KEYS(KC_U, KC_I) {
+            SEND_STRING("pnpm update --interactive --latest --recursive");
         }
         SEQ_TWO_KEYS(KC_Y, KC_L) {
             SEND_STRING("yarn lint");

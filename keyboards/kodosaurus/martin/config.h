@@ -15,12 +15,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
-#define DEVICE_VER      0x0002
-#define MANUFACTURER    Kodosaurus AB
-#define PRODUCT         Martinosaurus
-
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 12
 

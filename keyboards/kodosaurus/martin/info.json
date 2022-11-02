@@ -1,0 +1,11 @@
+{
+  "keyboard_name": "Martin",
+  "manufacturer": "Kodosaurus AB",
+  "maintainer": "mlandalv",
+  "url": "https://github.com/mlandalv/qmk_firmware",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x6050",
+    "device_version": "1.0.0"
+  }
+}

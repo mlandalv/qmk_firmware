@@ -1,18 +1,6 @@
-/* Copyright 2019 Martin Landälv
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2018-2022 QMK (@qmk)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -35,14 +23,14 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_CMAK] = LAYOUT_125( /* Colemak */
-            KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,       KC_5,                KC_6,    KC_7,      KC_8,    KC_9,    KC_0,    KC_MINS,
+            QK_GESC, KC_1,    KC_2,    KC_3,    KC_4,       KC_5,                KC_6,    KC_7,      KC_8,    KC_9,    KC_0,    KC_MINS,
             KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,       KC_B,                KC_J,    KC_L,      KC_U,    KC_Y, KC_SCLN,    KC_BSLS,
             KC_BSPC, KC_A,    KC_R,    KC_S,    KC_T,       KC_G,                KC_M,    KC_N,      KC_E,    KC_I,    KC_O,    KC_QUOT,
             KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,       KC_V,                KC_K,    KC_H,      KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
             KC_LCTL, KC_LGUI, MO(_FN), KC_LALT, MO(_LOWER), KC_SPC,              KC_ENT, MO(_RAISE), KC_RALT, KC_DOWN, KC_UP,   KC_RGHT
     ),
     [_QWER] = LAYOUT_125( /* QWERTY */
-            KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,       KC_5,                KC_6,    KC_7,      KC_8,    KC_9,    KC_0,    KC_MINS,
+            QK_GESC, KC_1,    KC_2,    KC_3,    KC_4,       KC_5,                KC_6,    KC_7,      KC_8,    KC_9,    KC_0,    KC_MINS,
             KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,       KC_T,                KC_Y,    KC_U,      KC_I,    KC_O,    KC_P,    KC_BSLS,
             KC_BSPC, KC_A,    KC_S,    KC_D,    KC_F,       KC_G,                KC_H,    KC_J,      KC_K,    KC_L,    KC_SCLN, KC_QUOT,
             KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,       KC_B,                KC_N,    KC_M,      KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
@@ -59,22 +47,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_GRV,  KC_6,    KC_7,       KC_8,    KC_9,    KC_0,                _______, _______,   _______, _______, _______, KC_EQL,
             _______, _______, _______,    _______, _______, _______,             _______, _______,   _______, _______, _______, _______,
             KC_DEL,  _______, _______,    _______, _______, _______,             KC_LEFT, KC_DOWN,   KC_UP,   KC_RGHT, KC_MINS, KC_EQL,
-            _______, _______, _______,    _______, _______, _______,             _______, _______,   KC_LEAD, KC_GT,   _______, _______,
+            _______, _______, _______,    _______, _______, _______,             _______, _______,   QK_LEAD, KC_GT,   _______, _______,
             KC_RCTL, _______, MO(_FN),    _______, _______, _______,             _______, MO(_XTRA), KC_HOME, KC_PGDN, KC_PGUP, KC_END
     ),
     [_FN] = LAYOUT_125(
-            KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,      KC_F5,               KC_F6,   KC_F7,     KC_NUMLOCK, KC_KP_SLASH,  KC_KP_ASTERISK, KC_KP_MINUS,
-            _______, KC_F12,  _______, _______, _______,    _______,             _______, _______,   KC_KP_7,    KC_KP_8,      KC_KP_9,        KC_KP_PLUS,
-            KC_DEL,  _______, _______, _______, _______,    _______,             _______, _______,   KC_KP_4,    KC_KP_5,      KC_KP_6,        KC_KP_PLUS,
-            _______, _______, _______, _______, _______,    _______,             _______, _______,   KC_KP_1,    KC_KP_2,      KC_KP_3,        KC_KP_ENTER,
-            _______, _______, _______, _______, _______,    _______,             _______, _______,   KC_KP_0,    _______,      _______,        KC_KP_ENTER
+            KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,      KC_F5,               KC_F6,   KC_F7,     KC_NUM_LOCK, KC_KP_SLASH,  KC_KP_ASTERISK, KC_KP_MINUS,
+            _______, KC_F12,  _______, _______, _______,    _______,             _______, _______,   KC_KP_7,     KC_KP_8,      KC_KP_9,        KC_KP_PLUS,
+            KC_DEL,  _______, _______, _______, _______,    _______,             _______, _______,   KC_KP_4,     KC_KP_5,      KC_KP_6,        KC_KP_PLUS,
+            _______, _______, _______, _______, _______,    _______,             _______, _______,   KC_KP_1,     KC_KP_2,      KC_KP_3,        KC_KP_ENTER,
+            _______, _______, _______, _______, _______,    _______,             _______, _______,   KC_KP_0,     _______,      _______,        KC_KP_ENTER
     ),
     [_XTRA] = LAYOUT_125(
-            QK_BOOT, _______, _______,   _______,   _______, _______,            _______, _______,   _______, _______, _______, _______,
-            _______, _______, _______,   _______,   _______, _______,            _______, _______,   _______, _______, _______, _______,
-            KC_CLCK, KC_NLCK, _______,   _______,   _______, _______,            _______, _______,   _______, _______, _______, _______,
-            _______, _______, DF(_QWER), DF(_CMAK), _______, _______,            _______, _______,   _______, _______, _______, _______,
-            _______, _______, _______,   _______,   _______, _______,            _______, _______,   _______, _______, _______, _______
+            QK_BOOT, _______,     _______,   _______,   _______, _______,            _______, _______,   _______, _______, _______, _______,
+            _______, _______,     _______,   _______,   _______, _______,            _______, _______,   _______, _______, _______, _______,
+            KC_CAPS, KC_NUM_LOCK, _______,   _______,   _______, _______,            _______, _______,   _______, _______, _______, _______,
+            _______, _______,     DF(_QWER), DF(_CMAK), _______, _______,            _______, _______,   _______, _______, _______, _______,
+            _______, _______,     _______,   _______,   _______, _______,            _______, _______,   _______, _______, _______, _______
     ),
 };
 
@@ -133,9 +121,10 @@ void matrix_scan_user(void) {
         }
 
 
-        SEQ_TWO_KEYS(KC_Y, KC_L) {
-            SEND_STRING("yarn lint");
-        }
+
+//        SEQ_TWO_KEYS(KC_Y, KC_L) {
+//            SEND_STRING("yarn lint");
+//        }
 //        SEQ_THREE_KEYS(KC_Y, KC_L, KC_L) {
 //            SEND_STRING("yarn lint && yarn typecheck");
 //        }

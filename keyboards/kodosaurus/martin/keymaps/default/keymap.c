@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-LEADER_EXTERNS();
+//LEADER_EXTERNS();
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -98,27 +98,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void matrix_init_user(void) {
+//void matrix_init_user(void) {
+//
+//}
 
-}
-
-void matrix_scan_user(void) {
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-
-        SEQ_TWO_KEYS(KC_G, KC_A) {
-            SEND_STRING("git add -A");
-        }
-        SEQ_TWO_KEYS(KC_G, KC_C) {
-            SEND_STRING("git commit -m \"\""SS_TAP(X_LEFT));
-        }
-        SEQ_TWO_KEYS(KC_Y, KC_U) {
-            SEND_STRING("yarn upgrade-interactive --latest");
-        }
-        SEQ_TWO_KEYS(KC_U, KC_I) {
-            SEND_STRING("pnpm update --interactive --latest --recursive");
-        }
+void leader_end_user(void) {
+  if (leader_sequence_two_keys(KC_U, KC_I)) {
+    SEND_STRING("pnpm update --interactive --latest --recursive");
+  }
+//    LEADER_DICTIONARY() {
+//        leading = false;
+//        leader_end();
+//
+//        SEQ_TWO_KEYS(KC_G, KC_A) {
+//            SEND_STRING("git add -A");
+//        }
+//        SEQ_TWO_KEYS(KC_G, KC_C) {
+//            SEND_STRING("git commit -m \"\""SS_TAP(X_LEFT));
+//        }
+//        SEQ_TWO_KEYS(KC_Y, KC_U) {
+//            SEND_STRING("yarn upgrade-interactive --latest");
+//        }
+//        SEQ_TWO_KEYS(KC_U, KC_I) {
+//            SEND_STRING("pnpm update --interactive --latest --recursive");
+//        }
 
 
 
@@ -137,7 +140,7 @@ void matrix_scan_user(void) {
 //            unregister_code(KC_S);
 //            unregister_code(KC_LGUI);
 //        }
-    }
+//    }
 }
 
 void led_set_user(uint8_t usb_led) {

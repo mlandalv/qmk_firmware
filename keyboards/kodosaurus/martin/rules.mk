@@ -6,3 +6,4 @@
 #COMMAND_ENABLE = no         # Commands for debug and configuration
 #NKRO_ENABLE = no            # Enable N-Key Rollover
 #LEADER_ENABLE = yes
+#USB_WAIT_FOR_ENUMERATION = yes

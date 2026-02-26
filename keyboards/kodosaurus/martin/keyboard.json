@@ -16,7 +16,7 @@
     "device_version": "1.0.0"
   },
   "parameters": {
-    "leader_per_key_timing": 300,
+    "leader_per_key_timing": true,
     "leader_timeout": 300
   },
   "features": {
@@ -26,7 +26,8 @@
     "extrakey": false,
     "mousekey": false,
     "nkro": false,
-    "leader": true
+    "leader": true,
+    "wait_for_enumeration": true
   },
   "layouts": {
     "LAYOUT_125": {
